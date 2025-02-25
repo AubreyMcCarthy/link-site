@@ -4,7 +4,7 @@ import chokidar from 'chokidar';
 
 const CONTENT_PATH = './content.json';
 const TEST_CONTENT_PATH = './test-content.json';
-const OUTPUT_DIR = './dist';
+const OUTPUT_DIR = './docs';
 const TEMPLATE_PATH = './template.html';
 
 async function generateSite(contentPath) {
