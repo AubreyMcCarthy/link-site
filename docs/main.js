@@ -3,6 +3,13 @@ const effectsWrapper = document.createElement('div');
 effectsWrapper.id = 'effects-wrapper';
 document.body.appendChild(effectsWrapper);
 
+const animateButton = (el) => {
+	el.classList.add('active');
+	setTimeout(() => {
+		el.classList.remove('active');
+	}, 200);
+}
+
 // Array.from(document.querySelectorAll("a")).forEach((el) => {
 // 	el.addEventListener("click", (e) => {
 // 		if(!pawActive) return;
@@ -120,8 +127,8 @@ function AttachPaw() {
 			console.log("stopping paw");
 			document.body.style.cursor = '';
 			Array.from(document.querySelectorAll('a')).forEach((el) => el.style.cursor = '' );
-			document.body.classList.add('paw-active');
-			document.body.classList.remove('paw-inactive');
+			document.body.classList.remove('paw-active');
+			document.body.classList.add('paw-inactive');
 		} else {
 			document.addEventListener("mousemove", updatePaw);
 			updatePaw(e);
@@ -132,6 +139,7 @@ function AttachPaw() {
 			Array.from(document.querySelectorAll('a')).forEach((el) => el.style.cursor = 'none' );
 			document.body.classList.add('paw-active');
 			document.body.classList.remove('paw-inactive');
+			animateButton(catBtn);
 		}
 		pawActive = !pawActive;
 	});
@@ -215,6 +223,8 @@ function AttachPaw() {
 		}
 	};
 
+	const nudgeFilterTags = [ 'body', 'nav' ];
+	const nudgeFilterClasses = [ 'container', 'profile-wrapper' ];
 	const step = (timestamp) => {
 
 		if (start === -1) {
@@ -232,14 +242,17 @@ function AttachPaw() {
 		if(halfwayCallback && t > 0.7) {
 			// console.log("triggering half way callback");
 			// console.log(halfwayCallback.target);
-			if(halfwayCallback.target.tagName.toLowerCase() != 'body') {
+			if(
+				!nudgeFilterTags.includes(halfwayCallback.target.tagName.toLowerCase()) &&
+				!nudgeFilterClasses.some((c) => halfwayCallback.target.classList.contains(c))
+				// !halfwayCallback.target.classList.some((c) => nudgeFilterClasses.contains(c))
+				// halfwayCallback.target.tagName.toLowerCase() != 'body' && 
+				// halfwayCallback.target.tagName.toLowerCase() != 'nav'
+			) {
 				if(halfwayCallback.target.tagName.toLowerCase() === 'a') {
 					nudge(halfwayCallback.target.parentNode);
 					const target = halfwayCallback.target;
-					target.classList.add('active');
-					setTimeout(() => {
-						target.classList.remove('active');
-					}, 200);
+					animateButton(target);
 				}
 				else {
 					nudge(halfwayCallback.target);
@@ -392,7 +405,7 @@ SetButtonBackground();
 
 const rainbowOffsetLength = 10;
 const rainbowOffsetAnimation = 100;
-const rainbowCount = 5;
+const rainbowCount = 10;
 const rainbowDelay = 0.33;
 const rainbowHeader = () => {
 	// insertBefore
