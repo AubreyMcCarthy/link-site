@@ -103,12 +103,25 @@ function AttachPaw() {
 		pawWristShadow.style.filter =
 			`blur(${lerp(2, 10, dist)}px) brightness(${lerp(0, 50, dist)}%) grayscale(100%)`;
 	}
-	const updatePaw = (e) => {
-		curMouseX = e.clientX;
-		curMouseY = e.clientY;
+	const updatePaw = (posX, posY) => {
+		curMouseX = posX;
+		curMouseY = posY;
 		setPaw();
 	}
-	
+	const updatePawMouse = (e) => updatePaw(e.clientX, e.clientY);
+	const startPawTouch = (e) => {
+		dist = 0;
+		updatePaw(e.touches[0].clientX, e.touches[0].clientY);
+	}
+	const updatePawTouch = (e) => {
+		updatePaw(e.touches[0].clientX, e.touches[0].clientY);
+	}
+	const stopPawTouch = (e) => {
+		if(e.touches.length == 0) {
+			dist = 1;
+			setPaw();
+		}
+	}
 	
 	let pawInit = false;
 	const catBtn = document.getElementById('cat-mode');
@@ -119,19 +132,15 @@ function AttachPaw() {
 			document.body.appendChild(pawHolder);
 			pawInit = true;
 		}
+		pawActive = !pawActive;
 		if(pawActive) {
-			document.removeEventListener("mousemove", updatePaw);
-			catBtn.innerText = "😿 Mode";
-			// catBtn.innerHTML = '<span style="font-size: 1.5rem;">😿</span> Mode';
-			pawWrapper.classList.remove('active');
-			console.log("stopping paw");
-			document.body.style.cursor = '';
-			Array.from(document.querySelectorAll('a')).forEach((el) => el.style.cursor = '' );
-			document.body.classList.remove('paw-active');
-			document.body.classList.add('paw-inactive');
-		} else {
-			document.addEventListener("mousemove", updatePaw);
-			updatePaw(e);
+			document.addEventListener("mousemove", updatePawMouse);
+			document.addEventListener('touchmove', updatePawTouch, { passive: false });
+			updatePawMouse(e);
+			document.addEventListener('touchstart', startPawTouch, { passive: false });
+			updatePawMouse(e);
+			document.addEventListener('touchend', stopPawTouch, { passive: false });
+			updatePawMouse(e);
 			catBtn.innerText = "😻 Mode";
 			// catBtn.innerHTML = '<span style="font-size: 1.5rem;">😻</span> Mode';
 			pawWrapper.classList.add('active');
@@ -140,8 +149,21 @@ function AttachPaw() {
 			document.body.classList.add('paw-active');
 			document.body.classList.remove('paw-inactive');
 			animateButton(catBtn);
+		} else {
+			document.removeEventListener("mousemove", updatePawMouse);
+			document.removeEventListener('touchmove', updatePawTouch);
+			document.removeEventListener('touchstart', startPawTouch);
+			updatePawMouse(e);
+			document.removeEventListener('touchend', stopPawTouch);
+			catBtn.innerText = "😿 Mode";
+			// catBtn.innerHTML = '<span style="font-size: 1.5rem;">😿</span> Mode';
+			pawWrapper.classList.remove('active');
+			console.log("stopping paw");
+			document.body.style.cursor = '';
+			Array.from(document.querySelectorAll('a')).forEach((el) => el.style.cursor = '' );
+			document.body.classList.remove('paw-active');
+			document.body.classList.add('paw-inactive');
 		}
-		pawActive = !pawActive;
 	});
 
 	const pawPrintWidth = 295;
@@ -200,7 +222,7 @@ function AttachPaw() {
 		const nudgeX = 
 			hasBeenNudgedBefore ? 
 			-window.innerWidth :
-			nudgeFactor * -maxNudge;
+			Math.max(nudgeFactor * -maxNudge, window.innerWidth * -0.15);
 
 		const nudgeY = Math.random() * maxNudge * 0.1;
 		const rotate = 
