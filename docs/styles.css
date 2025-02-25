@@ -44,7 +44,7 @@ body {
 .container {
 	max-width: 550px;
 	width: 90%;
-	margin: 2vh auto 0;
+	margin: 2vh auto 1rem;
 	/* padding: 2rem; */
 }
 
@@ -275,5 +275,5 @@ height:50px; */
 	width: 100%;
 	position: relative;
 	display: inline-block;
-	margin: 0 0 1rem;
+	margin: 0 0 1.25rem;
 }
