@@ -1,0 +1,29 @@
+{
+    "links": [
+        {
+            "id": "link-1",
+            "content": "Link 1"
+        },
+        {
+            "id": "link-2",
+            "content": "Link Test 2",
+            "link": "test.html"
+        },
+        {
+            "id": "link-3",
+            "content": "Link 3"
+        },
+        {
+            "id": "cat-mode",
+            "content": "🐱 Cat Mode"
+        },
+        {
+            "id": "link-4",
+            "content": "Link 4"
+        },
+        {
+            "id": "link-5",
+            "content": "Link 5"
+        }
+    ]
+}

@@ -1,0 +1,38 @@
+{
+    "links": [
+        {
+            "id": "total-loadout",
+            "content": "Wishlist Total Loadout On Steam!",
+            "link": "https://store.steampowered.com/app/3411560/Total_Loadout/"
+        },
+        {
+            "id": "cat-mode",
+            "content": "🐱 Cat Mode"
+        },
+        {
+            "id": "just-draw",
+            "content": "✏️ Just Draw",
+            "link": "https://aubreymccarthy.github.io/JustDraw/"
+        },
+        {
+            "id": "portfolio",
+            "content": "Portfolio",
+            "link": "https://aubrey.page"
+        },
+        {
+            "id": "yosh-pinball",
+            "content": "Yosh Pinball iOS",
+            "link": "https://apps.apple.com/us/app/yosh-pinball/id6736908664"
+        },
+        {
+            "id": "end-of-en",
+            "content": "🎵 EP 🎵",
+            "link": "https://searingforprinter.bandcamp.com/album/end-of-en"
+        },
+        {
+            "id": "blue-sky",
+            "content": "Bluesky",
+            "link": "https://aubsolutelynot.bsky.social"
+        }
+    ]
+}

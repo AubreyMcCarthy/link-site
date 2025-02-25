@@ -1,0 +1,264 @@
+:root {
+	--color-1: #f4d6e3;
+	--color-2: #dcd3f0;
+	--color-3: #a5c7e4;
+	--color-4: #c7e6d9;
+	--border-width: 1.5px;
+	--button-shadow: #c5989665;
+	--rainbow-l: 0.8;
+	--rainbow-c: 0.3;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	background: linear-gradient(-45deg, var(--color-1), var(--color-2), var(--color-3), var(--color-4));
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.container {
+	max-width: 550px;
+	width: 90%;
+	margin: 2vh auto 0;
+	/* padding: 2rem; */
+}
+
+
+#paw,
+#paw-wrist,
+#paw-shadow,
+#paw-wrist-shadow,
+.paw-print {
+	position: absolute;
+	pointer-events: none;
+}
+
+#paw-shadow,
+#paw-wrist-shadow {
+	filter: blur(10px) brightness(50%) grayscale(100%);
+	opacity: 20%;
+}
+
+#paw-holder,
+#paw-wrapper,
+#effects-wrapper {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	pointer-events: none;
+}
+
+#paw-wrapper {
+	z-index: 100000;
+	top: 100vh;
+	transition: top 0.25s ease-in-out;
+}
+
+#paw-wrapper.active {
+	top: 0;
+}
+
+.paw-print {
+	transition: opacity 2s ease-in;
+	/* z-index: -1; */
+}
+
+#header-wrapper {
+	margin-top: -5vh;
+	margin-bottom: -2.5vh;
+	width: 100%;
+	height: 3rem;
+	/* background-color: aliceblue; */
+	display: inline-block;
+	position:relative;
+}
+.header {
+	z-index: 1;
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	mask: url(imgs/aubrey-mccarthy.svg);
+	mask-repeat: no-repeat;
+	mask-position: center;
+	/* z-index: 100; */
+	/* background: linear-gradient(in oklch to bottom, red, orange, green, blue, purple, red); */
+	/* background: linear-gradient(in oklch to bottom, oklch(0.5, 0.4, 0), oklch(0.5, 0.4, 60), oklch(0.5, 0.4, 120), oklch(0.5, 0.4, 180), oklch(0.5, 0.4, 240), oklch(0.5, 0.4, 360)); */
+	/* --rainbow-lightness
+--rainbow-chroma */
+	/* background: linear-gradient(in oklch to bottom, oklch(var(--rainbow-l) var(--rainbow-c) 0), oklch(var(--rainbow-l) var(--rainbow-c) 60), oklch(var(--rainbow-l) var(--rainbow-c) 120), oklch(var(--rainbow-l) var(--rainbow-c) 180), oklch(var(--rainbow-l) var(--rainbow-c) 240), oklch(var(--rainbow-l) var(--rainbow-c) 360)); */
+	/* background-size: 400% 400%; */
+}
+#header-1 {
+	background: white;
+} 
+
+@keyframes rainbow-gradient {
+	0% {
+		background: oklch(var(--rainbow-l) var(--rainbow-c) 0);
+	}
+	16.666% {
+		background: oklch(var(--rainbow-l) var(--rainbow-c) 60);
+	}
+	33.333% {
+		background: oklch(var(--rainbow-l) var(--rainbow-c) 120);
+	}
+	50% {
+		background: oklch(var(--rainbow-l) var(--rainbow-c) 180);
+	}
+	66.666% {
+		background: oklch(var(--rainbow-l) var(--rainbow-c) 240);
+	}
+	100% {
+		background: oklch(var(--rainbow-l) var(--rainbow-c) 360);
+	}
+}
+
+
+#header {
+	margin-top: -5vh;
+	margin-bottom: -2.5vh;
+	width: 100%;
+	height: 3rem;
+	background: url(imgs/aubrey-mccarthy.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	display: block;
+	position:relative;
+	z-index: 10;
+}
+
+#profile {
+	border-radius: 50%;
+	border: 1px solid #ffe9e9;
+	width: 12rem;
+	height: 12rem;
+	margin: auto;
+	display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: -2.5vh;
+}
+
+.link-button {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	text-decoration: none;
+	text-align: center;
+	margin: 1.25rem 0;
+	padding: 1.25em 2em;
+	width: 100%;
+	font-weight: 600;
+	color: #69614f;
+	background: oklab(93% 0.167 0.0);
+	border: var(--border-width) solid #b18597;
+	border-radius: 0.8em;
+	transform-style: preserve-3d;
+	transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 500ms;
+	box-shadow: 0 0 0 1.5px rgba(255, 254, 248, 0.55) inset;
+}
+
+.link-button::before {
+	position: absolute;
+	content: "";
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #f9c4d2;
+	/* oklab(0.770, 0.133, 0.000) */
+	/* oklab(0.770, −0.115, 0.067) */
+	border-radius: inherit;
+	box-shadow: 0 0 0 var(--border-width) #b18597, 0 0.625em 0 1px var(--button-shadow), 0 20px 10px 5px rgba(255, 254, 248, 0.5) inset;
+	transform: translate3d(0, 0.75em, -1em);
+	transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+}
+
+.link-button:hover {
+	background: #ffe9e9;
+	transform: translate(0, -0.5em);
+	box-shadow: 0 0 15px 1.5px rgba(255, 254, 248, 0.5) inset, 0 0 0 .5px rgba(255, 254, 248, 0.25) inset;
+}
+
+.link-button:hover::before {
+	box-shadow: 0 0 0 var(--border-width) #b18597, 0 1.5em 0 1px var(--button-shadow), 0 20px 10px 5px rgba(255, 254, 248, 0.5) inset;
+	transform: translate3d(0, 1.25em, -1em);
+}
+
+.link-button.active,
+.paw-inactive .link-button:active {
+	background: #ffe9e9;
+	transform: translate(0em, 0.75em);
+}
+
+.link-button.active::before,
+.paw-inactive .link-button:active::before {
+	box-shadow: 0 0 0 var(--border-width) #b18597, 0 1px var(--button-shadow), 0 20px 10px 5px rgba(255, 254, 248, 0.5) inset;
+	transform: translate3d(0, 0, -1em);
+}
+
+.button-wrapper, .header, #profile {
+	transition: transform 150ms, opacity 300ms;
+}
+
+.star-container {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	width: 50px;
+	height: 50px;
+}
+
+.star {
+	/* display:block; */
+	/* width:4px;
+height:50px; */
+	background-size: 100% 100%;
+	position: absolute;
+	left: 50%;
+	bottom: 50%;
+	transform-origin: center bottom;
+	transition: transform 0.25s, opacity 1.3s cubic-bezier(1, 1, 0.25, 0);
+	transition-timing-function: ease-out;
+	/* background-color: #dd99dd; */
+}
+
+.star-4 {
+	background: url("imgs/star_4.svg");
+}
+
+.star-5 {
+	background: url("imgs/star_5.svg");
+}
+
+
