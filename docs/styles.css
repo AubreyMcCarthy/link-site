@@ -118,6 +118,7 @@ body {
 --rainbow-chroma */
 	/* background: linear-gradient(in oklch to bottom, oklch(var(--rainbow-l) var(--rainbow-c) 0), oklch(var(--rainbow-l) var(--rainbow-c) 60), oklch(var(--rainbow-l) var(--rainbow-c) 120), oklch(var(--rainbow-l) var(--rainbow-c) 180), oklch(var(--rainbow-l) var(--rainbow-c) 240), oklch(var(--rainbow-l) var(--rainbow-c) 360)); */
 	/* background-size: 400% 400%; */
+	/* animation: rainbow-wobble  15s ease infinite; */
 }
 #header-1 {
 	background: white;
@@ -130,6 +131,9 @@ body {
 	16.666% {
 		background: oklch(var(--rainbow-l) var(--rainbow-c) 60);
 	}
+	24.999% {
+		background: oklch(calc(var(--rainbow-l) * 1.2) var(--rainbow-c) 90);
+	}
 	33.333% {
 		background: oklch(var(--rainbow-l) var(--rainbow-c) 120);
 	}
@@ -141,6 +145,17 @@ body {
 	}
 	100% {
 		background: oklch(var(--rainbow-l) var(--rainbow-c) 360);
+	}
+}
+@keyframes rainbow-wobble {
+	0% {
+		transform: translate(0, 0);
+	}
+	50% {
+		transform: translate(0, 15px);
+	}
+	100% {
+		transform: translate(0, 0);
 	}
 }
 

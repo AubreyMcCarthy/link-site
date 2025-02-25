@@ -403,7 +403,7 @@ const SetButtonBackground = () => {
 SetButtonBackground();
 
 
-const rainbowOffsetLength = 10;
+const rainbowOffsetLength = 15;
 const rainbowOffsetAnimation = 100;
 const rainbowCount = 10;
 const rainbowDelay = 0.33;
@@ -424,7 +424,7 @@ const rainbowHeader = () => {
 				animation: rainbow-gradient 5s linear infinite;
 				animation-delay: -${rainbowCount - i * rainbowDelay}s;
 				top: ${offset}px;
-				left: -${offset}px;
+				left: -${offset * 0.2}px;
 			}
 
 			// @keyframes rainbow-gradient-${i} {
