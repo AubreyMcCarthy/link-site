@@ -2,6 +2,7 @@ let pawActive = false;
 const effectsWrapper = document.createElement('div');
 effectsWrapper.id = 'effects-wrapper';
 document.body.appendChild(effectsWrapper);
+const container = document.getElementsByClassName('container')[0];
 
 const animateButton = (el) => {
 	el.classList.add('active');
@@ -243,6 +244,18 @@ function AttachPaw() {
 				}, 1000);
 			}, 2000);
 		}
+
+		container.style.transform = 'translate(-7.5px, 0)';
+		window.requestAnimationFrame(() =>{
+			container.style.transform = 'translate(2.5px, 0)';
+			window.requestAnimationFrame(() =>{
+				container.style.transform = '';
+			})	
+		})
+		// window.setTimeout(() => {
+		// 	document.body.style.transform = '';
+
+		// }, 100);
 	};
 
 	const nudgeFilterTags = [ 'body', 'nav' ];
@@ -429,36 +442,34 @@ const rainbowOffsetLength = 15;
 const rainbowOffsetAnimation = 100;
 const rainbowCount = 10;
 const rainbowDelay = 0.33;
-const rainbowHeader = () => {
-	// insertBefore
-	const header = document.getElementById('header-1');
-	let previousHeader = header
-	for(let i = 2; i < rainbowCount+1; i++) {
+const rainbowHeader = (el) => {
+	for(let i = rainbowCount; i > 0; i--) {
 		const headerElement = document.createElement('div');
-		headerElement.id = 'header-' + i;
-		headerElement.className = 'header';
-		previousHeader.parentNode.insertBefore(headerElement, previousHeader);
-		previousHeader = headerElement;
+		headerElement.className = 'rainbow-element';
+		headerElement.classList.add('rainbow-element-' + i);
+		el.appendChild(headerElement);
+	}
+}
+
+const rainbowStyle = () => {
+	for(let i = rainbowCount; i > 0; i--) {
 		const offset = rainbowOffsetLength * ((i-1) / rainbowCount);
 		styleEl.innerHTML += `
-			#header-${i} {
-				// animation: rainbow-gradient-${i} 5s linear infinite;
-				animation: rainbow-gradient 5s linear infinite;
-				animation-delay: -${rainbowCount - i * rainbowDelay}s;
-				top: ${offset}px;
-				left: -${offset * 0.2}px;
+		.rainbow-element-${i} {
+			${i === 1 ? 'background: white;' : ''}
+			${
+				i === 1 ?
+				'animation: rainbow-wobble  6s ease infinite;' :
+				'animation: rainbow-gradient 5s linear infinite, rainbow-wobble  6s ease infinite;'
+
 			}
-
-			// @keyframes rainbow-gradient-${i} {
-			// 	0% {
-			// 		background-position: 50% ${400 - rainbowOffsetAnimation * i}%;
-			// 	}
-
-			// 	100% {
-			// 		background-position: 50% -${rainbowOffsetAnimation * i}%;
-			// 	}
-			// }
+			animation-delay: ${-10 + (i-1) * rainbowDelay}s;
+			top: ${offset * 0.2}px;
+			left: -${offset}px;
+		}
 		`;
 	}
 }
-rainbowHeader();
+rainbowHeader(document.getElementById('header-wrapper'));
+rainbowHeader(document.getElementById('footer-wrapper'));
+rainbowStyle();
